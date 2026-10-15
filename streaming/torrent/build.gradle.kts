@@ -28,4 +28,6 @@ dependencies {
     implementation(libs.bundles.coroutines)
     implementation(libs.libtorrent4j.android.arm64)
     implementation(libs.libtorrent4j.android.arm)
+    implementation(libs.nanohttpd.core)
+    implementation(libs.hilt.android)
 }

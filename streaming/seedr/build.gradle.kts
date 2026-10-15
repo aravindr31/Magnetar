@@ -27,4 +27,6 @@ dependencies {
     implementation(project(":core:network"))
     implementation(libs.security.crypto)
     implementation(libs.bundles.coroutines)
+    implementation(libs.okhttp.core)
+    implementation(libs.hilt.android)
 }
