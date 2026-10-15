@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.northlight.core.yts"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 23

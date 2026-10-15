@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.northlight"
-    compileSdk = 34
+    compileSdk = 35
 
     val appVersionCode = (project.findProperty("versionCode") as? String)?.toIntOrNull()
         ?: System.getenv("VERSION_CODE")?.toIntOrNull()

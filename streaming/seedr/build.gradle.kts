@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.northlight.streaming.seedr"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 23

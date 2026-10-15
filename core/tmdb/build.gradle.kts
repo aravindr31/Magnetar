@@ -20,7 +20,7 @@ val resolvedTmdbKey = (project.findProperty("TMDB_API_KEY") as? String)
 
 android {
     namespace = "com.northlight.core.tmdb"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 23
