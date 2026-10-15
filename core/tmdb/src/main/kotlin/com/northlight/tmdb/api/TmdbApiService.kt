@@ -1,6 +1,8 @@
 package com.northlight.tmdb.api
 
 import com.northlight.tmdb.model.TmdbMovie
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -8,7 +10,7 @@ import retrofit2.http.Query
 /**
  * Retrofit interface for TMDB API v3.
  * Base URL: https://api.themoviedb.org/3/
- * API key passed via [TmdbAuthInterceptor].
+ * API key passed via [com.northlight.tmdb.di.TmdbAuthInterceptor].
  */
 interface TmdbApiService {
 
@@ -30,9 +32,6 @@ interface TmdbApiService {
         @Query("external_source") externalSource: String = "imdb_id"
     ): TmdbFindResponse
 }
-
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class TmdbFindResponse(

@@ -77,3 +77,4 @@ data class YtsTorrent(
                 "&tr=udp://tracker.leechers-paradise.org:6969"
     }
 }
+

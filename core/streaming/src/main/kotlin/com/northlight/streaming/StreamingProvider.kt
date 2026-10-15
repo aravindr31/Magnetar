@@ -1,5 +1,7 @@
 package com.northlight.streaming
 
+import com.northlight.common.result.Result
+
 /**
  * Represents a resolved stream ready for playback.
  */
@@ -36,3 +38,4 @@ interface StreamingProvider {
      */
     suspend fun cleanup(streamResult: StreamResult) {}
 }
+

@@ -62,3 +62,4 @@ object TmdbModule {
     fun provideTmdbApiService(@Named("tmdb") retrofit: Retrofit): TmdbApiService =
         retrofit.create(TmdbApiService::class.java)
 }
+

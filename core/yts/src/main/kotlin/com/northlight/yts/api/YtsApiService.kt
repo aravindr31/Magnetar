@@ -46,3 +46,4 @@ interface YtsApiService {
         @Query("movie_id") movieId: Int
     ): YtsResponse<YtsMovieListData>
 }
+

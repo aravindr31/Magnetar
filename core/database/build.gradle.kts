@@ -28,4 +28,5 @@ dependencies {
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)
     implementation(libs.bundles.coroutines)
+    implementation(libs.hilt.android)
 }

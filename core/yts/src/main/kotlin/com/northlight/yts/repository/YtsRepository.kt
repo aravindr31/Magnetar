@@ -61,3 +61,4 @@ class YtsRepository @Inject constructor(
     suspend fun searchMovies(query: String, page: Int = 1): Result<List<YtsMovie>> =
         getMovies(page = page, query = query)
 }
+

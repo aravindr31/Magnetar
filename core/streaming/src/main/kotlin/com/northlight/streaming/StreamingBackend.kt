@@ -9,3 +9,4 @@ enum class StreamingBackend(val displayName: String) {
     REAL_DEBRID("Real-Debrid"),
     SEEDR("Seedr")
 }
+

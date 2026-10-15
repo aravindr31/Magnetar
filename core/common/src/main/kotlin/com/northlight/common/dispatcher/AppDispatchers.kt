@@ -18,3 +18,4 @@ class DefaultAppDispatchers @Inject constructor() : AppDispatchers {
     override val io: CoroutineDispatcher = Dispatchers.IO
     override val default: CoroutineDispatcher = Dispatchers.Default
 }
+

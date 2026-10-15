@@ -64,3 +64,4 @@ data class TmdbCrew(
     @Json(name = "job") val job: String,
     @Json(name = "department") val department: String
 )
+

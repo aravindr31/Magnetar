@@ -17,3 +17,4 @@ suspend fun <T> safeApiCall(
         Result.Error(e)
     }
 }
+

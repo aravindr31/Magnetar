@@ -26,4 +26,5 @@ dependencies {
     implementation(project(":core:common"))
     implementation(libs.bundles.coroutines)
     implementation(libs.datastore.prefs)
+    implementation(libs.hilt.android)
 }

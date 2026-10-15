@@ -35,3 +35,4 @@ object YtsModule {
     fun provideYtsApiService(@Named("yts") retrofit: Retrofit): YtsApiService =
         retrofit.create(YtsApiService::class.java)
 }
+

@@ -37,3 +37,4 @@ fun <T> Result<T>.getOrThrow(): T = when (this) {
     is Result.Error   -> throw exception
     is Result.Loading -> error("Result is still loading")
 }
+

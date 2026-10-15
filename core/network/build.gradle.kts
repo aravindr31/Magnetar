@@ -27,5 +27,6 @@ dependencies {
     implementation(project(":core:common"))
     implementation(libs.bundles.networking)
     implementation(libs.bundles.coroutines)
+    implementation(libs.hilt.android)
     ksp(libs.moshi.codegen)
 }

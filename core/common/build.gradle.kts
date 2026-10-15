@@ -25,4 +25,5 @@ android {
 dependencies {
     implementation(libs.bundles.coroutines)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.hilt.android)
 }

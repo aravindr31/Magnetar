@@ -42,3 +42,4 @@ object NetworkModule {
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
 }
+
