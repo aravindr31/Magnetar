@@ -28,3 +28,4 @@ jobs:
           else
             echo "::warning title=Changelog Not Updated::Please consider adding a note in CHANGELOG.md under [Unreleased] describing your changes."
           fi
+

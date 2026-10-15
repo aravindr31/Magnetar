@@ -10,11 +10,12 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Semantic version to release (e.g. 1.0.1)'
-        required: true
+        description: 'Semantic version (e.g. 1.0.1) — leave empty for auto-calculation from commits'
+        required: false
         type: string
+        default: ''
       version_code:
-        description: 'Monotonically increasing versionCode for Android (e.g. 2)'
+        description: 'Monotonically increasing versionCode for Android (optional)'
         required: false
         type: string
       prerelease:
@@ -42,6 +43,11 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
     - name: Determine Version & VersionCode
       id: versioning
       run: |
@@ -53,8 +59,20 @@ jobs:
           INPUT_CODE=""
         fi
 
-        # Strip leading 'v'
-        VERSION="${RAW_VERSION#v}"
+        if [ -z "$RAW_VERSION" ]; then
+          echo "No explicit version provided. Running automatic calculation from Conventional Commits..."
+          AUTO_OUT=$(python3 scripts/changelog.py auto)
+          VERSION=$(echo "$AUTO_OUT" | grep "NEXT_VERSION=" | cut -d'=' -f2)
+          echo "Auto-detected version: $VERSION"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore(release): auto-update changelog for v$VERSION" || true
+          git push origin main || true
+        else
+          # Strip leading 'v'
+          VERSION="${RAW_VERSION#v}"
+        fi
+
         echo "VERSION=$VERSION" >> $GITHUB_ENV
         echo "VERSION_NAME=$VERSION" >> $GITHUB_ENV
 
@@ -69,11 +87,6 @@ jobs:
 
         echo "Target Release Version: $VERSION"
         echo "Target Release VersionCode: $CODE"
-
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.x'
 
     - name: Validate CHANGELOG.md Entry
       run: |

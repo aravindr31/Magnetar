@@ -49,3 +49,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Automated CI build and unit test workflow on every push and PR.
   - Automated Release workflow for GitHub Releases, APK packaging, and changelog verification.
   - Dynamic `versionCode` and `versionName` configuration via environment variables.
+
