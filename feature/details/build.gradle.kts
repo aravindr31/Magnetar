@@ -35,9 +35,12 @@ dependencies {
     implementation(project(":core:tmdb"))
     implementation(project(":core:streaming"))
     implementation(project(":core:common"))
+    implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.coil.compose)
+    implementation(libs.hilt.navigation.compose)
+    implementation(libs.navigation.compose)
 }
