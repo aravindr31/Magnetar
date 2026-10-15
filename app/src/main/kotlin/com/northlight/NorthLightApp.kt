@@ -14,3 +14,4 @@ private val Application.dataStore: DataStore<Preferences>
  */
 @HiltAndroidApp
 class NorthLightApp : Application()
+

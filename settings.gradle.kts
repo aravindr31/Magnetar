@@ -45,3 +45,4 @@ include(":feature:browse")
 include(":feature:details")
 include(":feature:player")
 include(":feature:settings")
+
