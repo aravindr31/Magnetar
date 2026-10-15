@@ -95,3 +95,34 @@
    TMDB_API_KEY=your_tmdb_key_here
    ```
 3. Open project in **Android Studio (Ladybug / Koala or newer)** and build on Android TV emulator or physical Android TV device (min SDK 23).
+
+---
+
+## 🔄 CI/CD & Automated Releases
+
+The repository includes GitHub Actions workflows for continuous integration and automated releases:
+
+### 1. Continuous Integration (`.github/workflows/ci.yml`)
+- Automatically runs on all pushes and pull requests to `main`.
+- Compiles the project, executes unit tests, and validates build health.
+- Packages and uploads debug APK artifacts.
+
+### 2. Automated Releases (`.github/workflows/release.yml`)
+- Triggered by pushing a version tag (e.g. `v1.0.1`) or via GitHub Actions **Run workflow** button.
+- **Changelog Validation**: Ensures [CHANGELOG.md](file:///Users/aravind/repos/NorthLight/CHANGELOG.md) contains release notes for the target version.
+- **Automated Release Notes**: Automatically extracts notes for the release version from `CHANGELOG.md` and uses them as the GitHub Release body.
+- **APK Packaging**: Builds and signs `NorthLight-v<version>.apk` and attaches it directly as a release asset.
+
+### 3. Releasing a New Version
+To publish a new version:
+1. Move changes from `[Unreleased]` to a new version header in `CHANGELOG.md`:
+   ```bash
+   python3 scripts/changelog.py bump 1.0.1
+   ```
+2. Commit and push:
+   ```bash
+   git commit -am "chore: prepare release 1.0.1"
+   git tag v1.0.1
+   git push origin main --tags
+   ```
+3. GitHub Actions will automatically validate the changelog, assemble the APK, and publish the GitHub Release!

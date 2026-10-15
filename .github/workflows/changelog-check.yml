@@ -1,0 +1,30 @@
+name: Changelog Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'app/**'
+      - 'core/**'
+      - 'feature/**'
+      - 'streaming/**'
+
+jobs:
+  check-changelog:
+    name: Verify Changelog Updated
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check if CHANGELOG.md is modified
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          if git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -q "^CHANGELOG.md$"; then
+            echo "CHANGELOG.md was updated in this pull request. Great job!"
+          else
+            echo "::warning title=Changelog Not Updated::Please consider adding a note in CHANGELOG.md under [Unreleased] describing your changes."
+          fi
