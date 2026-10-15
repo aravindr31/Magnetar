@@ -33,8 +33,13 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:streaming"))
     implementation(project(":core:common"))
+    implementation(project(":core:yts"))
     implementation(libs.bundles.exoplayer)
+    implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
+    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+    implementation(libs.navigation.compose)
 }
