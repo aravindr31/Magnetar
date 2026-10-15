@@ -11,3 +11,4 @@ data class PlayerUiState(
     val progressMessage: String = "Initializing local torrent stream...",
     val isVlcAvailable: Boolean = false
 )
+

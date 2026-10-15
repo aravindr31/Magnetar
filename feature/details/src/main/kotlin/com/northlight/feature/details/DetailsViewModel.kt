@@ -90,3 +90,4 @@ class DetailsViewModel @Inject constructor(
         _uiState.update { it.copy(selectedTorrent = torrent) }
     }
 }
+

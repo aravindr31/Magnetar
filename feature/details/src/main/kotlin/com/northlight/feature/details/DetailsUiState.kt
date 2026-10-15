@@ -12,3 +12,4 @@ data class DetailsUiState(
     val selectedTorrent: YtsTorrent? = null,
     val error: String? = null
 )
+

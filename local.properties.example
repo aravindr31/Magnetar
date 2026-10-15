@@ -6,3 +6,4 @@ sdk.dir=/Users/your_user/Library/Android/sdk
 # Optional: TMDB API Key for enriched metadata, posters & cast photos
 # Get free key from: https://www.themoviedb.org/settings/api
 TMDB_API_KEY=your_tmdb_api_key_here
+

@@ -13,3 +13,4 @@ data class SettingsUiState(
     val isSaving: Boolean = false,
     val message: String? = null
 )
+

@@ -10,13 +10,57 @@ android {
     namespace = "com.northlight"
     compileSdk = 34
 
+    val appVersionCode = (project.findProperty("versionCode") as? String)?.toIntOrNull()
+        ?: System.getenv("VERSION_CODE")?.toIntOrNull()
+        ?: 1
+
+    val appVersionName = (project.findProperty("versionName") as? String)
+        ?: System.getenv("VERSION_NAME")
+        ?: "1.0.0"
+
     defaultConfig {
         applicationId = "com.northlight"
         minSdk = 23
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = appVersionCode
+        versionName = appVersionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        create("release") {
+            val keystoreFile = System.getenv("KEYSTORE_FILE")?.let { file(it) }
+            if (keystoreFile != null && keystoreFile.exists()) {
+                storeFile = keystoreFile
+                storePassword = System.getenv("KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("KEY_ALIAS")
+                keyPassword = System.getenv("KEY_PASSWORD")
+            } else {
+                // Fallback to debug keystore if release keystore is not provided
+                val debugKeystore = file("${System.getProperty("user.home")}/.android/debug.keystore")
+                if (debugKeystore.exists()) {
+                    storeFile = debugKeystore
+                    storePassword = "android"
+                    keyAlias = "androiddebugkey"
+                    keyPassword = "android"
+                }
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            signingConfig = signingConfigs.getByName("release")
+        }
+        debug {
+            applicationIdSuffix = ".debug"
+            isDebuggable = true
+        }
     }
 
     buildFeatures {
