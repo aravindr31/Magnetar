@@ -2,8 +2,6 @@ name: Release
 
 on:
   push:
-    branches:
-    - main
     tags:
     - 'v[0-9]+.[0-9]+.[0-9]+*'
 
@@ -54,8 +52,11 @@ jobs:
         if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
           RAW_VERSION="${{ inputs.version }}"
           INPUT_CODE="${{ inputs.version_code }}"
-        else
+        elif [ "${{ github.ref_type }}" = "tag" ]; then
           RAW_VERSION="${GITHUB_REF_NAME}"
+          INPUT_CODE=""
+        else
+          RAW_VERSION=""
           INPUT_CODE=""
         fi
 
@@ -106,9 +107,6 @@ jobs:
 
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
-      with:
-        gradle-version: '8.9'
-        gradle-home-cache-cleanup: true
 
     - name: Make Gradlew Executable
       run: chmod +x gradlew

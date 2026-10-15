@@ -36,14 +36,7 @@ android {
                 keyAlias = System.getenv("KEY_ALIAS")
                 keyPassword = System.getenv("KEY_PASSWORD")
             } else {
-                // Fallback to debug keystore if release keystore is not provided
-                val debugKeystore = file("${System.getProperty("user.home")}/.android/debug.keystore")
-                if (debugKeystore.exists()) {
-                    storeFile = debugKeystore
-                    storePassword = "android"
-                    keyAlias = "androiddebugkey"
-                    keyPassword = "android"
-                }
+                initWith(getByName("debug"))
             }
         }
     }

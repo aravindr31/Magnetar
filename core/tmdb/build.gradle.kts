@@ -1,22 +1,26 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
 }
 
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use { stream ->
+        localProperties.load(stream)
+    }
+}
+
+val resolvedTmdbKey = (project.findProperty("TMDB_API_KEY") as? String)
+    ?: System.getenv("TMDB_API_KEY")
+    ?: localProperties.getProperty("TMDB_API_KEY")
+    ?: ""
+
 android {
     namespace = "com.northlight.core.tmdb"
     compileSdk = 34
-
-    val localProperties = java.util.Properties().apply {
-        val file = rootProject.file("local.properties")
-        if (file.exists()) {
-            file.inputStream().use { load(it) }
-        }
-    }
-    val resolvedTmdbKey = (project.findProperty("TMDB_API_KEY") as? String)
-        ?: System.getenv("TMDB_API_KEY")
-        ?: localProperties.getProperty("TMDB_API_KEY")
-        ?: ""
 
     defaultConfig {
         minSdk = 23
