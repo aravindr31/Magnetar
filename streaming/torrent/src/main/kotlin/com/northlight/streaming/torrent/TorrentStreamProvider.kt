@@ -9,9 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import org.libtorrent4j.AlertListener
-import org.libtorrent4j.AndroidPlatform
-import org.libtorrent4j.MagnetUri
 import org.libtorrent4j.SessionManager
+import org.libtorrent4j.SessionParams
 import org.libtorrent4j.SettingsPack
 import org.libtorrent4j.TorrentHandle
 import org.libtorrent4j.TorrentInfo
@@ -78,11 +77,11 @@ class TorrentStreamProvider @Inject constructor(
             currentHandle = handle
 
             // Enable sequential download — critical for streaming
-            handle.setFlags(handle.flags().and_(org.libtorrent4j.TorrentFlags.SEQUENTIAL_DOWNLOAD))
+            handle.setFlags(org.libtorrent4j.TorrentFlags.SEQUENTIAL_DOWNLOAD)
 
             // Prioritise video file, deprioritise everything else
             val priorities = Array(torrentInfo.numFiles()) {
-                if (it == videoFileIndex) org.libtorrent4j.Priority.NORMAL else org.libtorrent4j.Priority.IGNORE
+                if (it == videoFileIndex) org.libtorrent4j.Priority.DEFAULT else org.libtorrent4j.Priority.IGNORE
             }
             handle.prioritizeFiles(priorities)
 
@@ -110,7 +109,8 @@ class TorrentStreamProvider @Inject constructor(
         withContext(Dispatchers.IO) {
             // libtorrent4j's blocking fetch with 30s timeout
             runCatching {
-                val data = session.fetchMagnet(magnetLink, 30)
+                val tempDir = File(context.cacheDir, "magnet_temp").also { it.mkdirs() }
+                val data = session.fetchMagnet(magnetLink, 30, tempDir)
                 data?.let { TorrentInfo.bdecode(it) }
             }.getOrNull()
         }
@@ -156,14 +156,14 @@ class TorrentStreamProvider @Inject constructor(
 
     private fun initSessionIfNeeded() {
         if (session != null) return
-        AndroidPlatform.setup()
         session = SessionManager().also {
             val settings = SettingsPack()
             settings.setString(
                 org.libtorrent4j.swig.settings_pack.string_types.user_agent.swigValue(),
                 "NorthLight/1.0"
             )
-            it.start(settings)
+            val params = SessionParams(settings)
+            it.start(params)
         }
     }
 
