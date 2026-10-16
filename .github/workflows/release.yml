@@ -134,7 +134,7 @@ jobs:
       if: steps.versioning.outputs.skip != 'true'
       run: chmod +x gradlew
 
-    - name: Setup Release Keystore (if secret provided)
+    - name: Setup Release Keystore
       if: steps.versioning.outputs.skip != 'true'
       id: keystore
       env:
@@ -146,9 +146,23 @@ jobs:
           echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
           echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
           echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
-          echo "Custom release keystore configured."
+          echo "Custom release keystore configured from repository secrets."
         else
-          echo "No custom keystore provided in secrets; falling back to default signing."
+          echo "No custom keystore provided in secrets; generating self-signed release keystore..."
+          keytool -genkeypair -v \
+            -keystore release.keystore \
+            -alias northlight \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass android \
+            -keypass android \
+            -dname "CN=NorthLight, OU=AndroidTV, O=NorthLight, C=US"
+          echo "KEYSTORE_FILE=$(pwd)/release.keystore" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=android" >> $GITHUB_ENV
+          echo "KEY_ALIAS=northlight" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=android" >> $GITHUB_ENV
+          echo "Generated self-signed release keystore."
         fi
 
     - name: Build Release APK
