@@ -3,6 +3,7 @@ package com.northlight.feature.details
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.northlight.common.result.getOrNull
 import com.northlight.common.result.onError
 import com.northlight.common.result.onSuccess
 import com.northlight.tmdb.repository.TmdbRepository
