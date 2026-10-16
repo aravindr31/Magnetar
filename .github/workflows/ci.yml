@@ -6,6 +6,10 @@ on:
       - main
     paths-ignore:
       - '**.md'
+      - 'AppIcons/**'
+      - '**.png'
+      - '**.jpg'
+      - '**.svg'
       - '.gitignore'
       - 'local.properties.example'
       - 'LICENSE'
@@ -14,6 +18,7 @@ on:
       - '.idea/**'
       - 'scripts/**'
       - '.github/workflows/changelog-check.yml'
+      - '.github/workflows/codeql.yml'
       - '.github/workflows/release.yml'
 
 concurrency:

@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Configured path filters across CI, CodeQL, and Release workflows to skip execution for documentation, image assets, and workflow maintenance.
+
 ### Planned
 - Subtitle track picker (.srt / .vtt) in built-in player
 - Trakt.tv watch history sync

@@ -3,8 +3,19 @@ name: "CodeQL Analysis"
 on:
   pull_request:
     branches: [ "main" ]
+    paths-ignore:
+    - '**.md'
+    - 'AppIcons/**'
+    - '**.png'
+    - '**.jpg'
+    - '**.svg'
+    - '.github/**'
+    - 'docs/**'
+    - '.gitignore'
+    - 'LICENSE'
+    - 'local.properties.example'
   schedule:
-    - cron: '0 6 * * 1'
+  - cron: '0 6 1 * 1'
 
 concurrency:
   group: codeql-${{ github.ref }}
