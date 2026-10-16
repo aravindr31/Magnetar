@@ -42,7 +42,7 @@ object TmdbModule {
         // API key injected via BuildConfig.TMDB_API_KEY — set in local.properties
         // For now using a placeholder; user must set their own key
     ): OkHttpClient = base.newBuilder()
-        .addInterceptor(TmdbAuthInterceptor(com.northlight.tmdb.BuildConfig.TMDB_API_KEY))
+        .addInterceptor(TmdbAuthInterceptor(com.northlight.core.tmdb.BuildConfig.TMDB_API_KEY))
         .build()
 
     @Provides
