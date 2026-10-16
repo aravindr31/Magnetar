@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 /**
  * Retrofit interface for the YTS public API.
- * Base URL: https://yts.mx/api/v2/
+ * Base URL: https://movies-api.accel.li/api/v2/
  */
 interface YtsApiService {
 

@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Configured CI (`ci.yml`) and CodeQL (`codeql.yml`) to run exclusively on Pull Requests.
 - Automated Release pipeline (`release.yml`) to trigger on merge to `main` with unreleased version detection from `CHANGELOG.md`.
 
+### Fixed
+- Updated YTS API base endpoint to active mirror (`https://movies-api.accel.li/api/v2/`) to ensure fast and uninterrupted movie catalogue retrieval.
+
 ### Planned
 - Subtitle track picker (.srt / .vtt) in built-in player
 - Trakt.tv watch history sync

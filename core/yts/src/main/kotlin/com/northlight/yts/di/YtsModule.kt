@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object YtsModule {
 
-    private const val YTS_BASE_URL = "https://yts.mx/api/v2/"
+    private const val YTS_BASE_URL = "https://movies-api.accel.li/api/v2/"
 
     @Provides
     @Singleton
