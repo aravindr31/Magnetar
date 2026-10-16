@@ -9,7 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Integrated official NorthLight application icons across all density buckets (`mdpi`, `hdpi`, `xhdpi`, `xxhdpi`, `xxxhdpi`) and round icon variants.
+- High-definition 16:9 Android TV Leanback launcher banner (`app_banner.png`).
+
 ### Changed
+- Revamped application `README.md` into a TV-first product showcase with living room features, sideloading tutorials, and architectural breakdown.
 - Configured CI (`ci.yml`) and CodeQL (`codeql.yml`) to run exclusively on Pull Requests.
 - Automated Release pipeline (`release.yml`) to trigger on merge to `main` with unreleased version detection from `CHANGELOG.md`.
 
