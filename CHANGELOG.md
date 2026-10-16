@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Configured CI (`ci.yml`) and CodeQL (`codeql.yml`) to run exclusively on Pull Requests.
+- Automated Release pipeline (`release.yml`) to trigger on merge to `main` with unreleased version detection from `CHANGELOG.md`.
+
 ### Planned
 - Subtitle track picker (.srt / .vtt) in built-in player
 - Trakt.tv watch history sync

@@ -2,13 +2,26 @@ name: Release
 
 on:
   push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+      - 'local.properties.example'
+      - 'LICENSE'
+      - 'docs/**'
+      - '.vscode/**'
+      - '.idea/**'
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/codeql.yml'
+      - '.github/workflows/changelog-check.yml'
     tags:
-    - 'v[0-9]+.[0-9]+.[0-9]+*'
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
 
   workflow_dispatch:
     inputs:
       version:
-        description: 'Semantic version (e.g. 1.0.1) — leave empty for auto-calculation from commits'
+        description: 'Semantic version (e.g. 1.0.1) — leave empty for auto-detection from CHANGELOG.md'
         required: false
         type: string
         default: ''
@@ -46,9 +59,11 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Determine Version & VersionCode
+    - name: Determine Version & Check Release Status
       id: versioning
       run: |
+        git fetch --tags origin || true
+
         if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
           RAW_VERSION="${{ inputs.version }}"
           INPUT_CODE="${{ inputs.version_code }}"
@@ -61,57 +76,66 @@ jobs:
         fi
 
         if [ -z "$RAW_VERSION" ]; then
-          echo "No explicit version provided. Running automatic calculation from Conventional Commits..."
-          AUTO_OUT=$(python3 scripts/changelog.py auto)
-          VERSION=$(echo "$AUTO_OUT" | grep "NEXT_VERSION=" | cut -d'=' -f2)
-          echo "Auto-detected version: $VERSION"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -am "chore(release): auto-update changelog for v$VERSION" || true
-          git push origin main || true
+          echo "No explicit version provided. Extracting latest version from CHANGELOG.md..."
+          VERSION=$(python3 scripts/changelog.py latest)
+          echo "Detected version from CHANGELOG.md: $VERSION"
+
+          # Check if this tag already exists on remote
+          if git rev-parse -q --verify "refs/tags/v$VERSION" >/dev/null 2>&1; then
+            echo "Release tag v$VERSION is already published! Skipping release build."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
         else
           # Strip leading 'v'
           VERSION="${RAW_VERSION#v}"
         fi
 
+        echo "skip=false" >> "$GITHUB_OUTPUT"
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
         echo "VERSION=$VERSION" >> $GITHUB_ENV
         echo "VERSION_NAME=$VERSION" >> $GITHUB_ENV
 
-        # Calculate or use provided versionCode
         if [ -n "$INPUT_CODE" ]; then
           CODE="$INPUT_CODE"
         else
-          # Default to git commit count for monotonic versionCode
           CODE=$(git rev-list --count HEAD)
         fi
+        echo "version_code=$CODE" >> "$GITHUB_OUTPUT"
         echo "VERSION_CODE=$CODE" >> $GITHUB_ENV
 
         echo "Target Release Version: $VERSION"
         echo "Target Release VersionCode: $CODE"
 
     - name: Validate CHANGELOG.md Entry
+      if: steps.versioning.outputs.skip != 'true'
       run: |
         python3 scripts/changelog.py validate "$VERSION"
 
     - name: Extract Release Notes from CHANGELOG.md
+      if: steps.versioning.outputs.skip != 'true'
       run: |
         python3 scripts/changelog.py extract "$VERSION" > RELEASE_NOTES.md
         echo "--- Release Notes Preview ---"
         cat RELEASE_NOTES.md
 
     - name: Set up JDK 17
+      if: steps.versioning.outputs.skip != 'true'
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '17'
 
     - name: Setup Gradle
+      if: steps.versioning.outputs.skip != 'true'
       uses: gradle/actions/setup-gradle@v3
 
     - name: Make Gradlew Executable
+      if: steps.versioning.outputs.skip != 'true'
       run: chmod +x gradlew
 
     - name: Setup Release Keystore (if secret provided)
+      if: steps.versioning.outputs.skip != 'true'
       id: keystore
       env:
         KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
@@ -128,6 +152,7 @@ jobs:
         fi
 
     - name: Build Release APK
+      if: steps.versioning.outputs.skip != 'true'
       env:
         VERSION_NAME: ${{ env.VERSION }}
         VERSION_CODE: ${{ env.VERSION_CODE }}
@@ -140,6 +165,7 @@ jobs:
           --stacktrace
 
     - name: Prepare Release Asset
+      if: steps.versioning.outputs.skip != 'true'
       run: |
         mkdir -p dist
         APK_FILE=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
@@ -152,6 +178,7 @@ jobs:
         echo "Packaged asset: $TARGET_APK"
 
     - name: Create GitHub Release
+      if: steps.versioning.outputs.skip != 'true'
       uses: softprops/action-gh-release@v2
       with:
         tag_name: v${{ env.VERSION }}

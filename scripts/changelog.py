@@ -170,15 +170,31 @@ def auto_generate():
     print(f"NEXT_VERSION={next_version}")
     return next_version
 
+def get_latest_version():
+    content = read_changelog()
+    pattern = r"##\s*\[([0-9]+\.[0-9]+\.[0-9]+[^\]]*)\]"
+    match = re.search(pattern, content)
+    if match:
+        version = match.group(1).strip()
+        print(version)
+        return version
+    else:
+        print("Error: No release version found in CHANGELOG.md", file=sys.stderr)
+        sys.exit(1)
+
 def main():
     if len(sys.argv) < 2:
-        print("Usage: changelog.py <extract|validate|bump|auto> [version]")
+        print("Usage: changelog.py <extract|validate|bump|auto|latest> [version]")
         sys.exit(1)
         
     command = sys.argv[1].lower()
     
     if command == "auto":
         auto_generate()
+        return
+
+    if command == "latest":
+        get_latest_version()
         return
 
     if len(sys.argv) < 3:
@@ -198,3 +214,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
