@@ -9,22 +9,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Integrated official NorthLight application icons across all density buckets (`mdpi`, `hdpi`, `xhdpi`, `xxhdpi`, `xxxhdpi`) and round icon variants.
-- High-definition 16:9 Android TV Leanback launcher banner (`app_banner.png`).
-
-### Changed
-- Revamped application `README.md` into a TV-first product showcase with living room features, sideloading tutorials, and architectural breakdown.
-- Configured CI (`ci.yml`) and CodeQL (`codeql.yml`) to run exclusively on Pull Requests.
-- Automated Release pipeline (`release.yml`) to trigger on merge to `main` with unreleased version detection from `CHANGELOG.md`.
-
-### Fixed
-- Updated YTS API base endpoint to active mirror (`https://movies-api.accel.li/api/v2/`) to ensure fast and uninterrupted movie catalogue retrieval.
-
 ### Planned
 - Subtitle track picker (.srt / .vtt) in built-in player
 - Trakt.tv watch history sync
 - Seedr OAuth WebView authentication fallback
+
+---
+
+## [1.0.1] - 2026-10-16
+
+### Added
+- Integrated official NorthLight application launcher icons across all screen density buckets (`mdpi`, `hdpi`, `xhdpi`, `xxhdpi`, `xxxhdpi`) and round icon variants.
+- High-definition 16:9 Android TV Leanback launcher banner (`app_banner.png`).
+
+### Fixed
+- Updated YTS API base endpoint to active mirror (`https://movies-api.accel.li/api/v2/`) ensuring reliable, high-speed catalogue indexing.
+
+### Changed
+- Revamped application `README.md` into a TV-first product showcase with living room features, sideloading tutorials, and architectural breakdown.
+- Optimized CI (`ci.yml`) and CodeQL (`codeql.yml`) to run exclusively on Pull Requests to conserve GitHub Actions minutes.
+- Automated Release pipeline (`release.yml`) to trigger on merge to `main` with unreleased version detection.
 
 ---
 
