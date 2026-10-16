@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: '0 6 * * 1'
+  - cron: '0 6 1 * 1'
 
 concurrency:
   group: codeql-${{ github.ref }}
@@ -48,7 +48,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build Application
-      run: ./gradlew assembleDebug -x test --stacktrace
+      run: ./gradlew compileDebugKotlin --stacktrace
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3

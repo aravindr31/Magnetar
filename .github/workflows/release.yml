@@ -5,7 +5,12 @@ on:
     branches:
       - main
     paths-ignore:
-      - '**.md'
+      - 'README.md'
+      - 'SECURITY.md'
+      - 'AppIcons/**'
+      - '**.png'
+      - '**.jpg'
+      - '**.svg'
       - '.gitignore'
       - 'local.properties.example'
       - 'LICENSE'
