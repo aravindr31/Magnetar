@@ -1,19 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**.md'
-      - '.gitignore'
-      - 'local.properties.example'
-      - 'LICENSE'
-      - 'docs/**'
-      - '.vscode/**'
-      - '.idea/**'
-      - 'scripts/**'
-      - '.github/workflows/changelog-check.yml'
   pull_request:
     branches:
       - main
@@ -27,6 +14,7 @@ on:
       - '.idea/**'
       - 'scripts/**'
       - '.github/workflows/changelog-check.yml'
+      - '.github/workflows/release.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
