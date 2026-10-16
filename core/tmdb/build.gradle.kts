@@ -3,6 +3,8 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 val localProperties = Properties()
@@ -53,4 +55,5 @@ dependencies {
     implementation(libs.bundles.coroutines)
     implementation(libs.bundles.networking)
     implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }
