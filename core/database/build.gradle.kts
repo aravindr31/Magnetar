@@ -2,11 +2,12 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "com.northlight.core.database"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 23
@@ -29,4 +30,5 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.bundles.coroutines)
     implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }

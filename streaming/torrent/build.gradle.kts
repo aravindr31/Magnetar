@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.northlight.streaming.torrent"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 23

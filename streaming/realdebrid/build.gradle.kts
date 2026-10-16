@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.northlight.streaming.realdebrid"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 23
@@ -23,6 +23,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:common"))
     implementation(project(":core:streaming"))
     implementation(project(":core:network"))
     implementation(libs.security.crypto)

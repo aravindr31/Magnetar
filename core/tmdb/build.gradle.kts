@@ -3,6 +3,8 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 val localProperties = Properties()
@@ -20,7 +22,7 @@ val resolvedTmdbKey = (project.findProperty("TMDB_API_KEY") as? String)
 
 android {
     namespace = "com.northlight.core.tmdb"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 23
@@ -53,4 +55,5 @@ dependencies {
     implementation(libs.bundles.coroutines)
     implementation(libs.bundles.networking)
     implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }

@@ -15,6 +15,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONObject
 import javax.inject.Inject
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -32,7 +33,7 @@ import javax.inject.Singleton
 @Singleton
 class SeedrProvider @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val okHttpClient: OkHttpClient
+    @Named("streaming") private val okHttpClient: OkHttpClient
 ) : StreamingProvider {
 
     override val name = "Seedr"

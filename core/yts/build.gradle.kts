@@ -1,11 +1,13 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
     namespace = "com.northlight.core.yts"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 23
@@ -25,6 +27,8 @@ android {
 dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:network"))
+    implementation(libs.bundles.networking)
     implementation(libs.bundles.coroutines)
     implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }

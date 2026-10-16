@@ -33,13 +33,17 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @Named("base")
-    fun provideOkHttpClient(logging: HttpLoggingInterceptor): OkHttpClient =
+    fun provideDefaultOkHttpClient(logging: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(logging)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
+
+    @Provides
+    @Singleton
+    @Named("base")
+    fun provideBaseOkHttpClient(client: OkHttpClient): OkHttpClient = client
 }
 
