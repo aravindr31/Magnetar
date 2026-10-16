@@ -1,128 +1,157 @@
-# NorthLight 🎬
+<p align="center">
+  <img src="AppIcons/playstore.png" alt="NorthLight Logo" width="140" style="border-radius: 28px;" />
+</p>
 
-**NorthLight** is a modular Android TV application that brings together YTS movie browsing, TMDB rich metadata, an in-app sequential torrent streaming server, and seamless playback via either the built-in Media3 player or external VLC.
+<h1 align="center">NorthLight</h1>
+
+<p align="center">
+  <strong>The Ultimate Cinematic Movie Streaming Experience for Android TV & Google TV</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/aravindr31/northlight/releases/latest">
+    <img src="https://img.shields.io/github/v/release/aravindr31/northlight?style=for-the-badge&color=00D2C4&label=Latest%20Release" alt="Latest Release" />
+  </a>
+  <img src="https://img.shields.io/badge/Platform-Android%20TV%20%7C%20Google%20TV-0A192F?style=for-the-badge&logo=android" alt="Platform" />
+  <a href="https://github.com/aravindr31/northlight/actions/workflows/ci.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/aravindr31/northlight/ci.yml?branch=main&style=for-the-badge&label=Build" alt="Build Status" />
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/aravindr31/northlight/releases/latest">
+    <img src="https://img.shields.io/badge/📥%20Download-NorthLight%20APK-00E5FF?style=for-the-badge&logoColor=white" alt="Download APK" />
+  </a>
+</p>
 
 ---
 
-## 🌟 Key Features
+## 🌌 Overview
 
-1. **Movie Discovery & Search (YTS + TMDB)**:
-   - Browse trending, latest, and top-rated movies directly from YTS.
-   - Filter by genres (Action, Comedy, Sci-Fi, Drama, Horror, etc.) and sort options.
-   - Live debounced search by movie title with TV-friendly keyboard input.
-   - Enriched metadata (high-res backdrops, cast & director info, tagline, synopsis) powered by TMDB using IMDB code mapping.
+**NorthLight** is a native, modern Android TV application built from the ground up for the 10-foot living room experience. Combining sleek Jetpack Compose for TV interfaces with an embedded sequential streaming engine, NorthLight lets you discover trending cinema, browse enriched metadata from TMDB, and start streaming movies in seconds — without waiting for files to finish downloading.
 
-2. **Built-in Local Torrent Streaming Server**:
-   - Sequential P2P downloading using `libtorrent4j`.
-   - Downloads headers and initial buffer directly on-device.
-   - Embedded local HTTP server (`NanoHTTPD`) with HTTP range-request support for instant video seeking.
-   - No external accounts or subscriptions needed.
-
-3. **Dual Playback Support (Built-in + VLC)**:
-   - **Built-in Player**: Google Media3 ExoPlayer optimized for Android TV with D-pad navigation.
-   - **VLC Integration**: 1-click "Open in VLC" button launching VLC via Android Intent (`org.videolan.vlc`) with stream URL and title.
-   - Automatic fallback and Google Play Store link if VLC is not installed.
-
-4. **Modular & Switchable Architecture**:
-   - `StreamingProvider` interface allows switching between **Local Torrent** (default), **Real-Debrid**, and **Seedr**.
-   - Room Database for watch history and favorites.
-   - Trunk-based development standards with clean multi-module separation.
+Designed specifically for TV remote controls (D-pads), NorthLight delivers the fluid browsing experience of top streaming platforms alongside the freedom of open-source streaming.
 
 ---
 
-## 🏗️ Architecture
+## ✨ Features
 
+### 📺 Living Room Native (Jetpack Compose for TV)
+- **10-Foot UI Experience**: Engineered specifically for TV screens and directional remotes with smooth focus transitions and responsive animations.
+- **Cinematic Backdrop Displays**: Full-screen, high-resolution backdrops dynamically update as you browse titles.
+- **Category Filter Chips**: Effortlessly switch between genres — Action, Comedy, Sci-Fi, Drama, Horror, Romance, Documentaries, and more.
+- **Quality Badges**: Clearly view available video resolutions (720p, 1080p, 2160p 4K) with file sizes and seeder health.
+
+### ⚡ Instant Sequential P2P Streaming
+- **Built-in Torrent Engine**: Powered by `libtorrent4j`, NorthLight downloads torrent pieces sequentially from start to finish.
+- **Local Embedded HTTP Server**: Streams directly to the media player via an internal `NanoHTTPD` server running locally on the device (`http://127.0.0.1:<port>`).
+- **Full Range-Request Seeking**: Jump to any timestamp in the video just like a traditional streaming service once initial buffers are acquired.
+- **No Setup or Accounts Needed**: Local streaming is completely free, built-in, and requires zero logins or third-party subscriptions.
+
+### 🎬 Enriched TMDB Metadata
+- **Automatic IMDB Code Mapping**: Connects public movie catalogues directly to TMDB v3 API.
+- **Comprehensive Movie Details**: Taglines, detailed synopses, user ratings, MPAA age ratings, runtime, and release dates.
+- **Director & Cast Profiles**: Scrollable cast rows displaying actor portraits, real names, and character roles.
+- **Smart Suggestions**: Discover similar and recommended titles on every detail page.
+
+### 🍿 Dual Playback Modes (ExoPlayer + VLC)
+- **Built-in Google Media3 Player**: Seamless, native video playback with dedicated D-pad play, pause, seek, and audio controls.
+- **1-Click "Open in VLC"**: Prefer an external video player? One click launches the stream into **VLC for Android TV** (`org.videolan.vlc`) with full support for hardware decoders, advanced audio pass-through, and custom subtitle tracks.
+- **Smart App Detection**: Prompts a direct Google Play Store installation if VLC is not already installed on the TV.
+
+### ☁️ Pluggable Cloud Debrid Providers
+- Switch between streaming backends in Settings at any time:
+  - **Local Torrent (Built-in)**: Zero cost, direct peer-to-peer.
+  - **Real-Debrid**: High-speed, cached cloud streaming for premium subscribers.
+  - **Seedr**: Lightweight cloud torrent fetching with a 2GB free tier.
+
+### 🔍 Real-Time TV Search & Filtering
+- Instant, debounced title search optimized for TV on-screen keyboards and voice remotes.
+- Sort movies by **Latest Added**, **Highest Rating**, **Most Seeders**, or **Release Year**.
+
+---
+
+## 📲 How to Install (Sideloading Guide)
+
+NorthLight is packaged and released as a standalone Android TV APK. You can install it on any Android TV, Google TV, Nvidia Shield, or Amazon Fire TV device using any of the following methods:
+
+### Method 1: Using the Downloader App (Recommended for TV)
+1. Install the **Downloader** app from the Google Play Store or Amazon Appstore on your TV.
+2. In your TV's settings, enable **Install Unknown Apps** for the Downloader app.
+3. Open Downloader and enter the direct APK URL from our [Latest Releases](https://github.com/aravindr31/northlight/releases/latest):
+   ```text
+   https://github.com/aravindr31/northlight/releases/latest/download/NorthLight-v1.0.0.apk
+   ```
+4. Click **Download** and select **Install** when prompted.
+
+### Method 2: Sideloading via ADB (Wireless or USB)
+If you have ADB debugging enabled on your TV:
+```bash
+# Connect to your Android TV over Wi-Fi
+adb connect <YOUR_TV_IP_ADDRESS>:5555
+
+# Install the downloaded release APK
+adb install NorthLight-v1.0.0.apk
 ```
-                                      ┌──────────────┐
-                                      │   YTS API    │
-                                      └──────┬───────┘
-                                             │
-┌──────────────┐      ┌──────────────┐       ▼
-│   TMDB API   │◄────►│ Movie Details│◄── Select Movie
-└──────────────┘      └──────┬───────┘
-                             │ Hit "Stream"
-                             ▼
-              ┌─────────────────────────────┐
-              │      StreamingProvider      │
-              │  (Local Torrent / Fallback) │
-              └──────────────┬──────────────┘
-                             │ Sequential download + Local HTTP server
-                             ▼
-              ┌─────────────────────────────┐
-              │  http://127.0.0.1:<port>/   │
-              └──────────────┬──────────────┘
-                             │
-              ┌──────────────┴──────────────┐
-              ▼                             ▼
-       ┌──────────────┐              ┌──────────────┐
-       │ Media3 Player│              │  VLC for TV  │
-       │ (Built-in)   │              │  (Intent)    │
-       └──────────────┘              └──────────────┘
-```
+
+### Method 3: USB Flash Drive
+1. Download `NorthLight-v1.0.0.apk` on your computer from the [Releases page](https://github.com/aravindr31/northlight/releases).
+2. Copy the `.apk` file to a USB flash drive.
+3. Plug the USB drive into your TV, open any TV file manager app (e.g., *File Commander* or *FX File Explorer*), navigate to the APK, and install it.
 
 ---
 
-## 📦 Modules
+## 📺 Supported Devices & System Requirements
 
-| Module | Namespace | Purpose |
-|---|---|---|
-| `:app` | `com.northlight` | TV Application entry, MainActivity, Hilt DI root, Navigation host |
-| `:core:common` | `com.northlight.core.common` | `Result<T>` sealed class, `SafeApiCall`, `AppDispatchers` |
-| `:core:network` | `com.northlight.core.network` | Retrofit, OkHttp, Moshi, JSON converters |
-| `:core:database` | `com.northlight.core.database` | Room database (Watch history & favorites DAOs) |
-| `:core:ui` | `com.northlight.core.ui` | TV theme, colors, `MovieCard`, `LoadingScreen`, `ErrorScreen`, `Routes` |
-| `:core:yts` | `com.northlight.core.yts` | YTS API service, models, magnet link builder, repository |
-| `:core:tmdb` | `com.northlight.core.tmdb` | TMDB API service, models, IMDB lookup, repository |
-| `:core:streaming` | `com.northlight.core.streaming` | `StreamingProvider` interface, `StreamingBackend` enum, `StreamingConfig` |
-| `:streaming:torrent` | `com.northlight.streaming.torrent` | **Primary backend**: `libtorrent4j` sequential torrent client + `TorrentHttpServer` |
-| `:streaming:realdebrid` | `com.northlight.streaming.realdebrid` | Cached cloud streaming provider (optional) |
-| `:streaming:seedr` | `com.northlight.streaming.seedr` | Cloud torrent fetcher with 2GB free tier (optional fallback) |
-| `:feature:browse` | `com.northlight.feature.browse` | Home movie grid, category filters, and live search screen |
-| `:feature:details` | `com.northlight.feature.details` | Movie info, TMDB cast, quality picker, stream buttons |
-| `:feature:player` | `com.northlight.feature.player` | Media3 ExoPlayer TV UI, VLC Intent helper, playback controller |
-| `:feature:settings` | `com.northlight.feature.settings` | Provider switcher, backend inspection, settings screen |
+| Specification | Requirement |
+| :--- | :--- |
+| **Operating System** | Android 6.0 Marshmallow (API 23) or higher |
+| **Target Platform** | Android TV, Google TV, Fire TV (Fire OS 6+) |
+| **Architectures** | `arm64-v8a`, `armeabi-v7a` |
+| **Tested Devices** | Chromecast with Google TV (4K & HD), Nvidia Shield TV / Pro, Xiaomi Mi Box / TV Stick, Sony Bravia Google TV, Amazon Fire TV Stick 4K |
+| **Network** | Stable broadband connection (15+ Mbps recommended for 1080p/4K streaming) |
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Configuration (Optional)
 
-1. Copy `local.properties.example` to `local.properties`:
-   ```bash
-   cp local.properties.example local.properties
-   ```
-2. (Optional) Add your TMDB API key in `local.properties`:
-   ```properties
-   TMDB_API_KEY=your_tmdb_key_here
-   ```
-3. Open project in **Android Studio (Ladybug / Koala or newer)** and build on Android TV emulator or physical Android TV device (min SDK 23).
+NorthLight runs out of the box with zero required configuration. To customize your installation:
+
+* **TMDB API Key (Optional)**: If you would like to use your own personal TMDB API v3 key to bypass public rate limits:
+  1. Create a `local.properties` file in the project root:
+     ```properties
+     TMDB_API_KEY=your_tmdb_api_key_here
+     ```
+  2. For CI/CD builds, configure the `TMDB_API_KEY` repository secret in GitHub.
+* **Streaming Backend**: Head to the **Settings** screen inside the app to select your preferred streaming backend (Local Torrent, Real-Debrid, or Seedr).
 
 ---
 
-## 🔄 CI/CD & Automated Releases
+## 🏗️ Architecture & Tech Stack
 
-The repository includes GitHub Actions workflows for continuous integration and automated releases:
+NorthLight is engineered following modern Android architecture best practices with a clean multi-module setup:
 
-### 1. Continuous Integration (`.github/workflows/ci.yml`)
-- Automatically runs on all pushes and pull requests to `main`.
-- Compiles the project, executes unit tests, and validates build health.
-- Packages and uploads debug APK artifacts.
+- **UI & Presentation**: Jetpack Compose for TV (`androidx.tv:tv-material`, `androidx.tv:tv-foundation`), Compose Navigation, Material3.
+- **Dependency Injection**: Dagger Hilt with KSP (Kotlin Symbol Processing).
+- **Networking**: Retrofit 2, OkHttp 4 with HTTP logging, Moshi JSON serialization.
+- **Asynchronous Flow**: Kotlin Coroutines & StateFlow.
+- **Image Loading**: Coil 2 with custom disk caching and memory management.
+- **Media Engine**: Google Media3 ExoPlayer + `NanoHTTPD` lightweight embedded web server.
+- **Torrent Engine**: `libtorrent4j` (libtorrent v2 C++ core with JNI bindings for ARM64/ARMv7).
+- **Local Persistence**: Jetpack Room Database & Jetpack DataStore Preferences.
+- **CI/CD Automation**: GitHub Actions with automated SemVer calculation, CodeQL security scanning, and automated release deployment.
 
-### 2. Automated Releases (`.github/workflows/release.yml`)
-- Triggered by pushing a version tag (e.g. `v1.0.1`) or via GitHub Actions **Run workflow** button.
-- **Changelog Validation**: Ensures [CHANGELOG.md](file:///Users/aravind/repos/NorthLight/CHANGELOG.md) contains release notes for the target version.
-- **Automated Release Notes**: Automatically extracts notes for the release version from `CHANGELOG.md` and uses them as the GitHub Release body.
-- **APK Packaging**: Builds and signs `NorthLight-v<version>.apk` and attaches it directly as a release asset.
+---
 
-### 3. Releasing a New Version
-To publish a new version:
-1. Move changes from `[Unreleased]` to a new version header in `CHANGELOG.md`:
-   ```bash
-   python3 scripts/changelog.py bump 1.0.1
-   ```
-2. Commit and push:
-   ```bash
-   git commit -am "chore: prepare release 1.0.1"
-   git tag v1.0.1
-   git push origin main --tags
-   ```
-3. GitHub Actions will automatically validate the changelog, assemble the APK, and publish the GitHub Release!
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+
+## ⚖️ Legal Disclaimer
+
+NorthLight is an open-source media player and aggregator application created strictly for educational and personal media consumption purposes. NorthLight does not host, store, index, or distribute any media files, video streams, or copyright-protected content. All metadata and cover images are provided via public API services (YTS public API and TMDB API). Users are solely responsible for ensuring their usage complies with all local laws and copyright regulations in their jurisdiction.
